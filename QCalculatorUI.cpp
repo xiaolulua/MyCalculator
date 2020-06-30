@@ -1,4 +1,5 @@
 #include "QCalculatorUI.h"
+#include <QDebug>                                //打印日志
 
 //解决半成品对象问题,使用二阶构造法
 //二阶构造法要么得到完整的对象,要么得到空指针,是不可能得到半成品对象的
@@ -52,6 +53,13 @@ bool QCalculatorUI::construct(void)
                 my_buttons[i*5 + j]->resize(40, 40);     //按钮大小,按钮间隔10px
                 my_buttons[i*5 + j]->move(10 + (10 + 40)*j, 50 + (10+40) *i);
                 my_buttons[i*5 + j]->setText(btext[i*5 + j]);
+#if 0
+                //Qt4: 槽与所处理的信号在函数签名上必须一致
+                connect(my_buttons[i*5 + j],SIGNAL(clicked()),this,SLOT(onButtonClicked()));
+#else
+                //Qt5
+                connect(my_buttons[i*5 + j],&QPushButton::clicked,this,&QCalculatorUI::onButtonClicked);
+#endif
             }else{
                 ret = false;
             }
@@ -69,4 +77,10 @@ void QCalculatorUI::show(void)
 
 QCalculatorUI::~QCalculatorUI(void){
 
+}
+
+void QCalculatorUI::onButtonClicked(void)
+{
+    QPushButton * btn = static_cast<QPushButton *>(sender());//sender()隶属于QObject,返回指针,该指针指向信号发送者
+    qDebug()<<btn->text();
 }
