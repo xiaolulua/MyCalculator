@@ -1,5 +1,4 @@
 #include "QCalculatorUI.h"
-#include <QDebug>                                //打印日志
 
 //解决半成品对象问题,使用二阶构造法
 //二阶构造法要么得到完整的对象,要么得到空指针,是不可能得到半成品对象的
@@ -7,10 +6,12 @@ QCalculatorUI::QCalculatorUI(void) : QWidget(nullptr,Qt::WindowCloseButtonHint)
 {
     //取消最大化最小化按钮
     //对象中的成员获取空间
+    my_cal = nullptr;
 }
 
 QCalculatorUI *QCalculatorUI::NewInstance(void)
 {
+    //一阶构造函数
     QCalculatorUI * ret = new QCalculatorUI();  //此处调用私有构造函数
     if( (ret == nullptr) || ret->construct() == false){
                                                 //如果资源申请失败就释放资源
@@ -73,7 +74,17 @@ void QCalculatorUI::show(void)
 {
     QWidget::show();                               //调用父类函数,显示主窗口
     setFixedSize(width(),height());                //设置主窗口固定大小,只有在show()之后,调用height()和weight()获得的结果才是准确的
-                                                   //原因在于不同的操作系统的边框,标题框,宽\高可能不同
+    //原因在于不同的操作系统的边框,标题框,宽\高可能不同
+}
+
+void QCalculatorUI::setCalculator(ICalculator *cal)
+{
+    my_cal = cal;
+}
+
+ICalculator *QCalculatorUI::getCalculator()
+{
+    return my_cal;
 }
 
 QCalculatorUI::~QCalculatorUI(void){
@@ -93,12 +104,14 @@ void QCalculatorUI::onButtonClicked(void)
     }else if(clickedText == "C"){                            //清空文本框中的字符
         my_edit->clear();
     }else if(clickedText == "="){                            //进行+-*/四则运算
-        if (lineText.length() > 0){                          //用户界面与业务逻辑分离
-
+        if (lineText.length() > 0){                          //用户界面与业务逻辑分离,此时界面可以独立于业务逻辑存在
+            if(my_cal != nullptr){
+                my_cal->expersion(my_edit->text());          //调用接口,传递表达式
+                my_edit->setText(my_cal->result());          //调用接口,获取计算结果
+            }
         }
     }else{
         lineText += clickedText;                             //将文本框内容和按钮内容组合
         my_edit->setText(lineText);                          //在文本框显示组合结果
     }
-    qDebug()<<btn->text();
 }

@@ -1,6 +1,5 @@
 #include <QApplication>
-#include "QCalculatorUI.h"
-#include "QCalculatorDec.h"
+#include "QCalculator.h"
 
 #if 0
 这是我写的地一个QtGui应用程序 : 计算器
@@ -19,7 +18,7 @@ int main(int argc, char *argv[])
     int ret = -1;
 
     //从堆空间申请内存创建主窗口
-    QCalculatorUI * cal = QCalculatorUI::NewInstance();
+    QCalculator * cal = QCalculator::NewInstance();
 
     if(cal != nullptr){
         cal->show();
