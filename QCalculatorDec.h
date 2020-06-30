@@ -1,11 +1,14 @@
 #ifndef QCALCULATORDEC_H
 #define QCALCULATORDEC_H
+
 #include <QString>
 #include <QStack>
 #include <QQueue>
 
-class QCalculatorDec
-{   
+#include "icalculator.h"
+
+class QCalculatorDec : public ICalculator
+{
 public:
     QCalculatorDec();
     ~QCalculatorDec();

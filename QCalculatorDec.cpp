@@ -1,5 +1,4 @@
 #include "QCalculatorDec.h"
-#include <QDebug>
 
 bool QCalculatorDec::isDigitalOrDot(QChar c)
 {
@@ -115,7 +114,7 @@ QString QCalculatorDec::calculate(QString left, QString op, QString right)
         }else if(op == "-"){
             ret.sprintf("%f",ldob - rdob);
         }else if(op == "*"){
-            ret.sprintf("%f",ldob - rdob);
+            ret.sprintf("%f",ldob * rdob);
         }else if(op == "/"){
             //除法要判断double类型的除零操作
             const double p=0.000000000000001;
