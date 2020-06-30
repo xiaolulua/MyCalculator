@@ -92,8 +92,8 @@ void QCalculatorUI::onButtonClicked(void)
         }
     }else if(clickedText == "C"){                            //清空文本框中的字符
         my_edit->clear();
-    }else if(clickedText == "="){
-        if (lineText.length() > 0){
+    }else if(clickedText == "="){                            //进行+-*/四则运算
+        if (lineText.length() > 0){                          //用户界面与业务逻辑分离
 
         }
     }else{

@@ -1,5 +1,6 @@
 #include <QApplication>
 #include "QCalculatorUI.h"
+#include "QCalculatorDec.h"
 
 #if 0
 这是我写的地一个QtGui应用程序 : 计算器

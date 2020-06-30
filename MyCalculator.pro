@@ -25,7 +25,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-    QCalculatorUI.cpp
+    QCalculatorUI.cpp \
+    QCalculatorDec.cpp
 
 HEADERS += \
-    QCalculatorUI.h
+    QCalculatorUI.h \
+    QCalculatorDec.h
